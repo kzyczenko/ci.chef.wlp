@@ -92,7 +92,9 @@ action :start do
     variables(
       "serverName" => new_resource.server_name,
       "cleanStart" => new_resource.clean, 
-      "installDir" => installDir
+      "installDir" => installDir,
+      "skipUmask"  => new_resource.skip_umask
+
     )
 
     notifies :restart, "service[wlp-#{new_resource.server_name}]", :delayed
