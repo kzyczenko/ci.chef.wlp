@@ -20,6 +20,7 @@ export WLP_INSTALL_DIR="<%= @installDir %>"
 <%= "export WLP_USER_DIR=\"#{@userDir}\"" if @userDir %>
 
 SERVER_NAME="<%= @serverName %>"
+export WLP_SKIP_UMASK=<%= @skipUmask ? "true" : "" %>
 
 start_service() {
   OPTIONS=<%= @cleanStart ? "--clean" : "" %>

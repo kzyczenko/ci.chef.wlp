@@ -86,5 +86,8 @@ attribute :bootstrapProperties, :kind_of => Hash, :default => {}
 #<> @attribute clean Clean all cached information when starting the server instance.
 attribute :clean, :kind_of => [TrueClass, FalseClass], :default => false
 
+#<> @attribute skip_umask Skip setting umask and use user default.
+attribute :skip_umask, :kind_of => [TrueClass, FalseClass], :default => false
+
 default_action :start
 
