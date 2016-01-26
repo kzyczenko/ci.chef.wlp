@@ -24,7 +24,7 @@ default[:wlp][:group] = "wlpadmin"
 #<
 # Use the `java` cookbook to install Java. If Java is installed using a
 # different method override it to `false`, in which case, the Java executables
-# must be available on the __PATH__. 
+# must be available on the __PATH__.
 #>
 default[:wlp][:install_java] = true
 
@@ -69,12 +69,12 @@ default[:wlp][:archive][:extended][:install] = true
 #<> Controls whether the extras archive is downloaded and installed.
 default[:wlp][:archive][:extras][:install] = false
 
-#<> Base installation directory of the extras archive. 
+#<> Base installation directory of the extras archive.
 default[:wlp][:archive][:extras][:base_dir] = "#{node[:wlp][:base_dir]}/extras"
 
 #<
-#  Accept license terms when doing archive-based installation. 
-#  Must be set to `true` or the installation fails. 
+#  Accept license terms when doing archive-based installation.
+#  Must be set to `true` or the installation fails.
 #>
 default[:wlp][:archive][:accept_license] = false
 
@@ -83,6 +83,15 @@ default[:wlp][:archive][:accept_license] = false
 #  Must be set if `node[:wlp][:install_method]` is set to `zip`.
 #>
 default[:wlp][:zip][:url] = nil
+
+#<> Controls whether installUtility uses the online liberty repository
+default[:wlp][:repository][:liberty] = true
+
+#<> Sets the URL of the hosted asset repostiory used by installUtility
+default[:wlp][:repository][:hosted_url] = nil
+
+#<> Sets the path or URL of a directory based asset repository used by installUtility
+default[:wlp][:repository][:local_url] = nil
 
 #<
 #  Defines a basic server configuration when creating server instances using
