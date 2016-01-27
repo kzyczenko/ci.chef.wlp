@@ -15,34 +15,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-action :install do
-  if new_resource.name =~ /:\/\//
-    name_uri = ::URI.parse(new_resource.name)
-    name_filename = ::File.basename(name_uri.path)
-    name = "#{Chef::Config[:file_cache_path]}/#{name_filename}"
-    remote_file name do
-      source new_resource.name
-      user node[:wlp][:user]
-      group node[:wlp][:group]
-    end
-  else
-    name = new_resource.name
-  end
-  command = "#{@utils.installDirectory}/bin/installUtility install"
-  command << " --to=#{new_resource.to}"
-  if new_resource.accept_license
-    command << " --acceptLicense"
-  end
-  command << " #{name}"
-  execute command do
-    command command
-    user node[:wlp][:user]
-    group node[:wlp][:group]
-    returns [0, 22]
-  end
-end
-
 action :download do
+
+  if new_resource.directory == nil
+    directory = node[:wlp][:base_dir]
+  else
+    directory = new_resource.directory
+  end
+
   if new_resource.name =~ /:\/\//
     name_uri = ::URI.parse(new_resource.name)
     name_filename = ::File.basename(name_uri.path)
@@ -56,7 +36,7 @@ action :download do
     name = new_resource.name
   end
   command = "#{@utils.installDirectory}/bin/installUtility download"
-  command << " --location=#{new_resource.directory}"
+  command << " --location=#{directory}"
   if new_resource.accept_license
     command << " --acceptLicense"
   end

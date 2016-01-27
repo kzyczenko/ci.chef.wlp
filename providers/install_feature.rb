@@ -16,24 +16,24 @@
 # limitations under the License.
 
 action :install do
-  if new_resource.location =~ /:\/\//
-    location_uri = ::URI.parse(new_resource.location)
-    location_filename = ::File.basename(location_uri.path)
-    location = "#{Chef::Config[:file_cache_path]}/#{location_filename}"
-    remote_file location do
-      source new_resource.location
+  if new_resource.name =~ /:\/\//
+    name_uri = ::URI.parse(new_resource.name)
+    name_filename = ::File.basename(name_uri.path)
+    name = "#{Chef::Config[:file_cache_path]}/#{name_filename}"
+    remote_file name do
+      source new_resource.name
       user node[:wlp][:user]
       group node[:wlp][:group]
     end
   else
-    location = new_resource.location
+    name = new_resource.name
   end
-  command = "#{@utils.installDirectory}/bin/featureManager install --when-file-exists=ignore"
+  command = "#{@utils.installDirectory}/bin/installUtility install"
   command << " --to=#{new_resource.to}"
   if new_resource.accept_license
     command << " --acceptLicense"
   end
-  command << " #{location}"
+  command << " #{name}"
   execute command do
     command command
     user node[:wlp][:user]
@@ -42,7 +42,7 @@ action :install do
   end
 end
 
-private 
+private
 
 def load_current_resource
   @utils = Liberty::Utils.new(node)

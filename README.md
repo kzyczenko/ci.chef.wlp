@@ -29,11 +29,11 @@ When the zip installation method is used, only the `node[:wlp][:zip][:url]` attr
 
 ## Platform:
 
-* Aix
-* Debian
-* Ubuntu
-* Centos
-* Redhat
+* aix
+* debian
+* ubuntu
+* centos
+* redhat
 
 ## Cookbooks:
 
@@ -41,42 +41,50 @@ When the zip installation method is used, only the `node[:wlp][:zip][:url]` attr
 
 # Attributes
 
-* `node[:wlp][:user]` - User name under which the server is installed and runs. Defaults to `"wlp"`.
-* `node[:wlp][:group]` - Group name under which the server is installed and runs. Defaults to `"wlpadmin"`.
+* `node[:wlp][:user]` - User name under which the server is installed and runs. Defaults to `wlp`.
+* `node[:wlp][:group]` - Group name under which the server is installed and runs. Defaults to `wlpadmin`.
 * `node[:wlp][:install_java]` - Use the `java` cookbook to install Java. If Java is installed using a
 different method override it to `false`, in which case, the Java executables
-must be available on the __PATH__. Defaults to `"true"`.
-* `node[:wlp][:base_dir]` - Base installation directory. Defaults to `"/opt/was/liberty"`.
-* `node[:wlp][:user_dir]` - User directory (wlp.user.dir). Set to 'nil' to use default location. Defaults to `"nil"`.
-* `node[:wlp][:install_method]` - Installation method. Set it to 'archive' or 'zip'. Defaults to `"archive"`.
+must be available on the __PATH__. Defaults to `true`.
+* `node[:wlp][:base_dir]` - Base installation directory. Defaults to `/opt/was/liberty`.
+* `node[:wlp][:user_dir]` - User directory (wlp.user.dir). Set to 'nil' to use default location. Defaults to `nil`.
+* `node[:wlp][:install_method]` - Installation method. Set it to 'archive' or 'zip'. Defaults to `archive`.
 * `node[:wlp][:archive][:version_yaml]` - Location of the Yaml file containing the URLs of the 'archive' install file
- for the latest release and latest beta. Defaults to `"http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/index.yml"`.
-* `node[:wlp][:archive][:use_beta]` - Use the beta instead of the release. Defaults to `"false"`.
-* `node[:wlp][:archive][:runtime][:url]` - URL location of the runtime archive. Overrides the location in the Yaml file. Defaults to `"nil"`.
+ for the latest release and latest beta. Defaults to `http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/index.yml`.
+* `node[:wlp][:archive][:use_beta]` - Use the beta instead of the release. Defaults to `false`.
+* `node[:wlp][:archive][:runtime][:url]` - URL location of the runtime archive. Overrides the location in the Yaml file. Defaults to `nil`.
 * `node[:wlp][:archive][:extended][:url]` - URL location of the extended archive. Only used if the archive runtime url
- is set. Defaults to `"nil"`.
+ is set. Defaults to `nil`.
 * `node[:wlp][:archive][:extras][:url]` - URL location of the extras archive. Only used if
- `node[:wlp][:archive][:runtime][:url]` is set. Defaults to `"nil"`.
-* `node[:wlp][:archive][:extended][:install]` - Controls whether the extended archive is downloaded and installed. Defaults to `"true"`.
-* `node[:wlp][:archive][:extras][:install]` - Controls whether the extras archive is downloaded and installed. Defaults to `"false"`.
-* `node[:wlp][:archive][:extras][:base_dir]` - Base installation directory of the extras archive. Defaults to `"\#{node[:wlp][:base_dir]}/extras"`.
+ `node[:wlp][:archive][:runtime][:url]` is set. Defaults to `nil`.
+* `node[:wlp][:archive][:extended][:install]` - Controls whether the extended archive is downloaded and installed. Defaults to `true`.
+* `node[:wlp][:archive][:extras][:install]` - Controls whether the extras archive is downloaded and installed. Defaults to `false`.
+* `node[:wlp][:archive][:extras][:base_dir]` - Base installation directory of the extras archive. Defaults to `#{node[:wlp][:base_dir]}/extras`.
 * `node[:wlp][:archive][:accept_license]` - Accept license terms when doing archive-based installation.
- Must be set to `true` or the installation fails. Defaults to `"false"`.
+ Must be set to `true` or the installation fails. Defaults to `false`.
 * `node[:wlp][:zip][:url]` - URL location for a zip file containing Liberty profile installation files.
- Must be set if `node[:wlp][:install_method]` is set to `zip`. Defaults to `"nil"`.
+ Must be set if `node[:wlp][:install_method]` is set to `zip`. Defaults to `nil`.
+* `node[:wlp][:repository][:liberty]` - Controls whether installUtility uses the online liberty repository. Defaults to `true`.
+* `node[:wlp][:repository][:hosted_url]` - Sets the URL of the hosted asset repostiory used by installUtility. Defaults to `nil`.
+* `node[:wlp][:repository][:local_url]` - Sets the path or URL of a directory based asset repository used by installUtility. Defaults to `nil`.
 * `node[:wlp][:config][:basic]` - Defines a basic server configuration when creating server instances using
- the `wlp_server` resource. Defaults to `"{ ... }"`.
-* `node[:wlp][:servers][:defaultServer]` - Defines a `defaultServer` server instance. Used by the `serverconfig` recipe. Defaults to `"{ ... }"`.
+ the `wlp_server` resource. Defaults to `{ ... }`.
+* `node[:wlp][:servers][:defaultServer]` - Defines a `defaultServer` server instance. Used by the `serverconfig` recipe. Defaults to `{ ... }`.
 
 # Recipes
 
 * [wlp::default](#wlpdefault) - Installs WebSphere Application Server Liberty Profile.
+* [wlp::repositories_properties](#wlprepositories_properties)
 * [wlp::serverconfig](#wlpserverconfig) - Creates a Liberty profile server instance for each `node[:wlp][:servers][<server_name>]` definition.
 
 ## wlp::default
 
 Installs WebSphere Application Server Liberty Profile. Liberty profile can be
 installed using jar archive files, or from a zip file based on the `node[:wlp][:install_method]` setting.
+
+## wlp::repositories_properties
+
+Creates the file etc/repositories.properties in the wlp dir to configure which repositories are used by installUtility
 
 ## wlp::serverconfig
 
@@ -103,7 +111,8 @@ node[:wlp][:servers][:airport] = {
 * [wlp_bootstrap_properties](#wlp_bootstrap_properties) - Adds, removes, and sets bootstrap properties for a particular server instance.
 * [wlp_collective](#wlp_collective) - Provides operations for creating, joining, replicating, and removing Liberty profile servers from a collective.
 * [wlp_config](#wlp_config) - Generates a server.xml file from a hash expression.
-* [wlp_install_feature](#wlp_install_feature) - Installs a feature from an enterprise subsystem archive (ESA) file.
+* [wlp_download_feature](#wlp_download_feature) - Downloads an asset from the Liberty Repository or a local LARS reposiory using installUtility.
+* [wlp_install_feature](#wlp_install_feature) - Installs or downloads an asset from the Liberty Repository, a local LARS reposiory, or a local directory based repository using installUtility.
 * [wlp_jvm_options](#wlp_jvm_options) - Adds, removes, and sets JVM options in an installation-wide or instance-specific jvm.options file.
 * [wlp_server](#wlp_server) - Provides operations for creating, starting, stopping, and destroying Liberty profile server instances.
 * [wlp_server_env](#wlp_server_env) - Adds, removes, and sets environment properties in installation-wide or instance-specific server.env file.
@@ -202,24 +211,47 @@ wlp_config "/var/servers/airport/server.xml" do
 end
 ```
 
-## wlp_install_feature
+## wlp_download_feature
 
-Installs a feature from an enterprise subsystem archive (ESA) file.
+Downloads an asset from the Liberty Repository or a local LARS reposiory using installUtility.
 
 ### Actions
 
-- install: Installs a feature using a .esa file. Default action.
+- download: Downloads an asset from the configured repository to the specified directory. Default action.
 
 ### Attribute Parameters
 
-- location: Specifies the location of the ESA file to be installed. Can be a file name or a URL. Defaults to <code>nil</code>.
+- name: Specifies the name of the asset to be downloaded. Defaults to <code>nil</code>.
+- directory: Specifies which local directory path utilities are downloaded to when using the :download action. Defaults to <code>nil</code>.
+- accept_license: Specifies whether to accept the license terms and conditions of the feature. Defaults to <code>false</code>.
+
+### Examples
+```ruby
+wlp_install_utility "mongodb" do
+  name "mongodb-2.0"
+  directory "/opt/ibm/wlp/features"
+  accept_license true
+end
+```
+
+## wlp_install_feature
+
+Installs or downloads an asset from the Liberty Repository, a local LARS reposiory, or a local directory based repository using installUtility.
+
+### Actions
+
+- install: Installs an asset from which ever repositoryis confiugured in the repositoies.properties file. Default action.
+
+### Attribute Parameters
+
+- name: Specifies the name of the asset to be installed. Defaults to <code>nil</code>.
 - to: Specifies where to install the feature. The feature can be installed to any configured product extension location, or as a user feature. Defaults to <code>"usr"</code>.
 - accept_license: Specifies whether to accept the license terms and conditions of the feature. Defaults to <code>false</code>.
 
 ### Examples
 ```ruby
-wlp_install_feature "mongodb" do
-  location "http://example.com/websphere/liberty/profile/com.ibm.websphere.appserver.mongodb-2.0.esa"
+wlp_install_utility "mongodb" do
+  name "mongodb-2.0"
   accept_license true
 end
 ```
@@ -284,6 +316,7 @@ Provides operations for creating, starting, stopping, and destroying Liberty pro
 - serverEnv: Instance-specific server environment properties. Defaults to <code>{}</code>.
 - bootstrapProperties: Instance-specific bootstrap properties. Defaults to <code>{}</code>.
 - clean: Clean all cached information when starting the server instance. Defaults to <code>false</code>.
+- skip_umask: Skip setting umask and use user default. Defaults to <code>false</code>.
 
 ### Examples
 ```ruby

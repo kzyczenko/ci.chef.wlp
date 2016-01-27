@@ -17,30 +17,31 @@
 
 =begin
 #<
-Installs or downloads an asset from the Liberty Repository, a local LARS reposiory, or a local directory based repository using installUtility.
+Downloads an asset from the Liberty Repository or a local LARS reposiory using installUtility.
 
-@action install Installs an asset from which ever repositoryis confiugured in the repositoies.properties file.
+@action download Downloads an asset from the configured repository to the specified directory.
 
 @section Examples
 ```ruby
 wlp_install_utility "mongodb" do
   name "mongodb-2.0"
+  directory "/opt/ibm/wlp/features"
   accept_license true
 end
 ```
 #>
 =end
 
-actions :install
+actions :download
 
 
-#<> @attribute name Specifies the name of the asset to be installed.
+#<> @attribute name Specifies the name of the asset to be downloaded.
 attribute :name, :kind_of => String, :default => nil
 
-#<> @attribute to Specifies where to install the feature. The feature can be installed to any configured product extension location, or as a user feature.
-attribute :to, :kind_of => String, :default => "usr"
+#<> @attribute directory Specifies which local directory path utilities are downloaded to when using the :download action.
+attribute :directory, :kind_of => String, :default => nil
 
 #<> @attribute accept_license Specifies whether to accept the license terms and conditions of the feature.
 attribute :accept_license, :kind_of => [TrueClass, FalseClass], :default => false
 
-default_action :install
+default_action :download
