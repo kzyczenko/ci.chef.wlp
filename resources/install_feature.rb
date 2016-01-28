@@ -17,7 +17,7 @@
 
 =begin
 #<
-Installs or downloads an asset from the Liberty Repository, a local LARS reposiory, or a local directory based repository using installUtility.
+Installs an asset from the Liberty Repository, a local [LARS](https://github.com/WASdev/tool.lars) repository, or a local directory based repository.
 
 @action install Installs an asset from which ever repositoryis confiugured in the repositoies.properties file.
 

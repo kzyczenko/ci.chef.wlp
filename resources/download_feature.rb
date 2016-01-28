@@ -17,7 +17,7 @@
 
 =begin
 #<
-Downloads an asset from the Liberty Repository or a local LARS reposiory using installUtility.
+Downloads an asset from the Liberty Repository or a local [LARS](https://github.com/WASdev/tool.lars) repository.
 
 @action download Downloads an asset from the configured repository to the specified directory.
 

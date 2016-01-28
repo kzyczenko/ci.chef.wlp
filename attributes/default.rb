@@ -84,14 +84,11 @@ default[:wlp][:archive][:accept_license] = false
 #>
 default[:wlp][:zip][:url] = nil
 
-#<> Controls whether installUtility uses the online liberty repository
+#<> Controls whether install_feature and download_feature uses the online liberty repository
 default[:wlp][:repository][:liberty] = true
 
-#<> Sets the URL of the hosted asset repostiory used by installUtility
-default[:wlp][:repository][:hosted_url] = nil
-
-#<> Sets the path or URL of a directory based asset repository used by installUtility
-default[:wlp][:repository][:local_url] = nil
+#<> Sets a list of URLs for hosted or local asset repository used by install_feature and download_feature
+default[:wlp][:repository][:urls] = []
 
 #<
 #  Defines a basic server configuration when creating server instances using

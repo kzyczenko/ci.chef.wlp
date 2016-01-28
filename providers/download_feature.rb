@@ -17,6 +17,38 @@
 
 action :download do
 
+  liberty_repository = node[:wlp][:repository][:liberty]
+  repository_urls = node[:wlp][:repository][:urls]
+
+  directory "#{node[:wlp][:base_dir]}/wlp/etc" do
+    owner node[:wlp][:user]
+    group node[:wlp][:group]
+    mode '0755'
+    action :create
+  end
+
+  properties = ""
+
+  if liberty_repository == false
+    properties = "useDefaultRepository=false \n"
+  else
+    properties = "useDefaultRepository=true \n"
+  end
+
+  if repository_urls != []
+    repository_urls.each_with_index do |url, index|
+      properties << "repository#{index}.url=#{url} \n"
+    end
+  end
+
+  file "#{node[:wlp][:base_dir]}/wlp/etc/repositories.properties" do
+    content "#{properties}"
+    owner 'wlp'
+    group 'wlpadmin'
+    mode '0644'
+    action :create
+  end
+
   if new_resource.directory == nil
     directory = node[:wlp][:base_dir]
   else

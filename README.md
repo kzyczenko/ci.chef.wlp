@@ -64,9 +64,8 @@ must be available on the __PATH__. Defaults to `true`.
  Must be set to `true` or the installation fails. Defaults to `false`.
 * `node[:wlp][:zip][:url]` - URL location for a zip file containing Liberty profile installation files.
  Must be set if `node[:wlp][:install_method]` is set to `zip`. Defaults to `nil`.
-* `node[:wlp][:repository][:liberty]` - Controls whether installUtility uses the online liberty repository. Defaults to `true`.
-* `node[:wlp][:repository][:hosted_url]` - Sets the URL of the hosted asset repostiory used by installUtility. Defaults to `nil`.
-* `node[:wlp][:repository][:local_url]` - Sets the path or URL of a directory based asset repository used by installUtility. Defaults to `nil`.
+* `node[:wlp][:repository][:liberty]` - Controls whether install_feature and download_feature uses the online liberty repository. Defaults to `true`.
+* `node[:wlp][:repository][:urls]` - Sets a list of URLs for hosted or local asset repository used by install_feature and download_feature. Defaults to `[ ... ]`.
 * `node[:wlp][:config][:basic]` - Defines a basic server configuration when creating server instances using
  the `wlp_server` resource. Defaults to `{ ... }`.
 * `node[:wlp][:servers][:defaultServer]` - Defines a `defaultServer` server instance. Used by the `serverconfig` recipe. Defaults to `{ ... }`.
@@ -74,17 +73,12 @@ must be available on the __PATH__. Defaults to `true`.
 # Recipes
 
 * [wlp::default](#wlpdefault) - Installs WebSphere Application Server Liberty Profile.
-* [wlp::repositories_properties](#wlprepositories_properties)
 * [wlp::serverconfig](#wlpserverconfig) - Creates a Liberty profile server instance for each `node[:wlp][:servers][<server_name>]` definition.
 
 ## wlp::default
 
 Installs WebSphere Application Server Liberty Profile. Liberty profile can be
 installed using jar archive files, or from a zip file based on the `node[:wlp][:install_method]` setting.
-
-## wlp::repositories_properties
-
-Creates the file etc/repositories.properties in the wlp dir to configure which repositories are used by installUtility
 
 ## wlp::serverconfig
 
@@ -111,8 +105,8 @@ node[:wlp][:servers][:airport] = {
 * [wlp_bootstrap_properties](#wlp_bootstrap_properties) - Adds, removes, and sets bootstrap properties for a particular server instance.
 * [wlp_collective](#wlp_collective) - Provides operations for creating, joining, replicating, and removing Liberty profile servers from a collective.
 * [wlp_config](#wlp_config) - Generates a server.xml file from a hash expression.
-* [wlp_download_feature](#wlp_download_feature) - Downloads an asset from the Liberty Repository or a local LARS reposiory using installUtility.
-* [wlp_install_feature](#wlp_install_feature) - Installs or downloads an asset from the Liberty Repository, a local LARS reposiory, or a local directory based repository using installUtility.
+* [wlp_download_feature](#wlp_download_feature) - Downloads an asset from the Liberty Repository or a local [LARS](https://github.com/WASdev/tool.lars) repository.
+* [wlp_install_feature](#wlp_install_feature) - Installs an asset from the Liberty Repository, a local [LARS](https://github.com/WASdev/tool.lars) repository, or a local directory based repository.
 * [wlp_jvm_options](#wlp_jvm_options) - Adds, removes, and sets JVM options in an installation-wide or instance-specific jvm.options file.
 * [wlp_server](#wlp_server) - Provides operations for creating, starting, stopping, and destroying Liberty profile server instances.
 * [wlp_server_env](#wlp_server_env) - Adds, removes, and sets environment properties in installation-wide or instance-specific server.env file.
@@ -213,7 +207,7 @@ end
 
 ## wlp_download_feature
 
-Downloads an asset from the Liberty Repository or a local LARS reposiory using installUtility.
+Downloads an asset from the Liberty Repository or a local [LARS](https://github.com/WASdev/tool.lars) repository.
 
 ### Actions
 
@@ -236,7 +230,7 @@ end
 
 ## wlp_install_feature
 
-Installs or downloads an asset from the Liberty Repository, a local LARS reposiory, or a local directory based repository using installUtility.
+Installs an asset from the Liberty Repository, a local [LARS](https://github.com/WASdev/tool.lars) repository, or a local directory based repository.
 
 ### Actions
 
