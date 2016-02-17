@@ -23,7 +23,7 @@ Downloads an asset from the Liberty Repository or a local [LARS](https://github.
 
 @section Examples
 ```ruby
-wlp_install_utility "mongodb" do
+wlp_download_feature "mongodb" do
   name "mongodb-2.0"
   directory "/opt/ibm/wlp/features"
   accept_license true
