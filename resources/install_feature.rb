@@ -35,12 +35,12 @@ actions :install
 
 
 #<> @attribute name Specifies the name of the asset to be installed.
-attribute :name, :kind_of => String, :default => nil
+attribute :name, [String, NilClass], :default => nil
 
 #<> @attribute to Specifies where to install the feature. The feature can be installed to any configured product extension location, or as a user feature.
-attribute :to, :kind_of => String, :default => "usr"
+attribute :to, String, :default => "usr"
 
 #<> @attribute accept_license Specifies whether to accept the license terms and conditions of the feature.
-attribute :accept_license, :kind_of => [TrueClass, FalseClass], :default => false
+attribute :accept_license, [TrueClass, FalseClass], :default => false
 
 default_action :install

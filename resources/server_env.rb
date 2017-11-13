@@ -52,10 +52,9 @@ end
 actions :add, :remove, :set
 
 #<> @attribute server_name If specified, the server.env file in the specified server instance is updated. Otherwise, the installation-wide server.env file is updated.
-attribute :server_name, :kind_of => String, :default => nil
+attribute :server_name, [String, NilClass], :default => nil
 
 #<> @attribute properties The properties to add, set, or remove. Must be specified as a hash when adding or setting, and as an array when removing.
-attribute :properties, :kind_of => [Hash, Array], :default => nil
+attribute :properties, [Hash, Array, NilClass], :default => nil
 
 default_action :set
-

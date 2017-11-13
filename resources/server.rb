@@ -22,12 +22,12 @@ Provides operations for creating, starting, stopping, and destroying Liberty pro
 @action create  Creates or updates the server instance.
 @action create_if_missing  Creates a server instance only if the instance does not already exist.
 @action destroy Destroys the server instance.
-@action start   Creates and starts the server instance (as an OS service). 
+@action start   Creates and starts the server instance (as an OS service).
 @action stop    Stops the server instance (via an OS service).
 
 @section Examples
 ```ruby
-wlp_server "myInstance" do 
+wlp_server "myInstance" do
   config ({
             "featureManager" => {
               "feature" => [ "jsp-2.2", "jaxws-2.1" ]
@@ -51,7 +51,7 @@ wlp_server "myInstance" do
   action :create
 end
 
-wlp_server "myInstance" do 
+wlp_server "myInstance" do
   clean true
   action :start
 end
@@ -69,25 +69,24 @@ end
 actions :start, :stop, :create, :create_if_missing, :destroy
 
 #<> @attribute server_name Name of the server instance.
-attribute :server_name, :kind_of => String, :name_attribute => true
+attribute :server_name, String, :name_attribute => true
 
 #<> @attribute config Configuration for the server instance. If not specified, `node[:wlp][:config][:basic]` is used as the initial configuration.
-attribute :config, :kind_of => Hash, :default => nil
+attribute :config, [Hash, NilClass], :default => nil
 
-#<> @attribute jvmOptions Instance-specific JVM options. 
-attribute :jvmOptions, :kind_of => Array, :default => []
+#<> @attribute jvmOptions Instance-specific JVM options.
+attribute :jvmOptions, Array, :default => []
 
-#<> @attribute serverEnv Instance-specific server environment properties. 
-attribute :serverEnv, :kind_of => Hash, :default => {}
+#<> @attribute serverEnv Instance-specific server environment properties.
+attribute :serverEnv, Hash, :default => {}
 
-#<> @attribute bootstrapProperties Instance-specific bootstrap properties. 
-attribute :bootstrapProperties, :kind_of => Hash, :default => {}
+#<> @attribute bootstrapProperties Instance-specific bootstrap properties.
+attribute :bootstrapProperties, Hash, :default => {}
 
 #<> @attribute clean Clean all cached information when starting the server instance.
-attribute :clean, :kind_of => [TrueClass, FalseClass], :default => false
+attribute :clean, [TrueClass, FalseClass], :default => false
 
 #<> @attribute skip_umask Skip setting umask and use user default.
-attribute :skip_umask, :kind_of => [TrueClass, FalseClass], :default => false
+attribute :skip_umask, [TrueClass, FalseClass], :default => false
 
 default_action :start
-

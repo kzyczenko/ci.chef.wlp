@@ -36,12 +36,12 @@ actions :download
 
 
 #<> @attribute name Specifies the name of the asset to be downloaded.
-attribute :name, :kind_of => String, :default => nil
+attribute :name, [String, NilClass], :default => nil
 
 #<> @attribute directory Specifies which local directory path utilities are downloaded to when using the :download action.
-attribute :directory, :kind_of => String, :default => nil
+attribute :directory, [String, NilClass], :default => nil
 
 #<> @attribute accept_license Specifies whether to accept the license terms and conditions of the feature.
-attribute :accept_license, :kind_of => [TrueClass, FalseClass], :default => false
+attribute :accept_license, [TrueClass, FalseClass], :default => false
 
 default_action :download

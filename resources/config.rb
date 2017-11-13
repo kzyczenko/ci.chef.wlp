@@ -44,9 +44,9 @@ end
 actions :create, :create_if_missing
 
 #<> @attribute file The server.xml file to create or update.
-attribute :file, :kind_of => String, :default => nil, :name_attribute => true
+attribute :file, String, :name_attribute => true
 
 #<> @attribute config The contents of the server.xml file expressed as a hash.
-attribute :config, :kind_of => [Hash], :default => nil
+attribute :config, [Hash, NilClass], :default => nil
 
 default_action :create

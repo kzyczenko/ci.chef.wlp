@@ -22,7 +22,7 @@ Provides operations for creating, joining, replicating, and removing Liberty pro
 @action create  Creates the initial collective controller for the Liberty collective.
 @action join    Joins a Liberty server to the collective managed by the specified collective controller.
 @action replicate Destroys the server instance.
-@action remove   Creates and starts the server instance (as an OS service). 
+@action remove   Creates and starts the server instance (as an OS service).
 
 @section Examples
 ```ruby
@@ -33,28 +33,27 @@ Fill me in!
 actions :create, :join, :replicate, :remove
 
 #<> @attribute server_name Name of the server instance to operate on
-attribute :server_name, :kind_of => String, :name_attribute => true
+attribute :server_name, String, :name_attribute => true
 
 #<> @attribute keystorePassword The keystore password to set when creating the collective SSL configuration.
-attribute :keystorePassword, :kind_of => String, :default => nil
+attribute :keystorePassword, [String, NilClass], :default => nil
 
 #<> @attribute host The host of the collective controller to join to, replicate from or remove from. If not specified, the controller host will be looked up from the Chef server.
-attribute :host, :kind_of => String, :default => nil
+attribute :host, [String, NilClass], :default => nil
 
 #<> @attribute port The port of the collective controller to join to, replicate from or remove from. If not specified, the controller port will be looked up from the Chef server.
-attribute :port, :kind_of => String, :default => nil
+attribute :port, [String, NilClass], :default => nil
 
 #<> @attribute user An Administrative user name. The join, replicate and remove actions require an authenticated user.
-attribute :user, :kind_of => String, :default => nil
+attribute :user, [String, NilClass], :default => nil
 
 #<> @attribute password The Administrative user's password. The join, replicate and remove actions require an authenticated user.
-attribute :password, :kind_of => String, :default => nil
+attribute :password, [String, NilClass], :default => nil
 
 #<> @attribute admin_user Name of the quickStartSecurity admin userid
-attribute :admin_user, :kind_of => String, :default => nil
+attribute :admin_user, [String, NilClass], :default => nil
 
 #<> @attribute admin_password Name of the quickStartSecurity admin password
-attribute :admin_password, :kind_of => String, :default => nil
+attribute :admin_password, [String, NilClass], :default => nil
 
 default_action :create
-
